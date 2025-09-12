@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">SmartCalculator</string>
+    <string name="settings">Настройки</string>
+    <string name="theme">Тема</string>
+    <string name="theme_description">Выбе preferred тему приложения</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_system">Системная</string>
+    <string name="language">Язык</string>
+    <string name="language_description">Выберите язык приложения</string>
+    <string name="vibration">Вибрация</string>
+    <string name="vibration_description">Включить или отключить вибрацию</string>
+    <string name="about_app">О приложении</string>
+    <string name="app_version">Версия 1.0.0</string>
+
+    <string name="back">Назад</string>
+    <string name="history">История</string>
+    <string name="help">Справка</string>
+    <string name="share">Поделиться</string>
+</resources>
