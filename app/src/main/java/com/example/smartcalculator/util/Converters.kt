@@ -1,30 +1,43 @@
 package com.example.smartcalculator.util
 
-import androidx.room.TypeConverter
+import com.example.smartcalculator.data.local.database.entities.AlgebraicHistoryEntity
+import com.example.smartcalculator.data.local.database.entities.GraphicHistoryEntity
+import com.example.smartcalculator.data.local.database.entities.ProgrammerHistoryEntity
+import com.example.smartcalculator.data.local.database.entities.StatisticalHistoryEntity
+import com.example.smartcalculator.data.model.CalculatorType
+import com.example.smartcalculator.data.model.HistoryItem
 
 class Converters {
-    @TypeConverter
-    fun fromDoubleList(value: List<Double>): String {
-        return value.joinToString(",")
+    fun toHistoryItem(entity: AlgebraicHistoryEntity): HistoryItem {
+        return HistoryItem(
+            id = entity.id,
+            calculatorType = CalculatorType.ALGEBRAIC,
+            expression = entity.expression,
+            result = entity.result,
+            timestamp = entity.timestamp
+        )
     }
 
-    @TypeConverter
-    fun toDoubleList(value: String): List<Double> {
-        return if (value.isEmpty()) emptyList()
-        else value.split(",").map { it.toDouble() }
+    fun toHistoryItem(entity: GraphicHistoryEntity): HistoryItem {
+        return HistoryItem(
+            id = entity.id,
+            calculatorType = CalculatorType.GRAPHIC,
+            expression = entity.expression,
+            result = entity.result,
+            timestamp = entity.timestamp
+        )
     }
 
-    @TypeConverter
-    fun fromMap(value: Map<String, String>): String {
-        return value.entries.joinToString(";") { "${it.key}:${it.value}" }
+    // ... аналогично для ProgrammerHistoryEntity и StatisticalHistoryEntity
+
+    fun toAlgebraicEntity(item: HistoryItem): AlgebraicHistoryEntity {
+        return AlgebraicHistoryEntity(
+            id = item.id,
+            expression = item.expression,
+            result = item.result,
+            timestamp = item.timestamp
+        )
     }
 
-    @TypeConverter
-    fun toMap(value: String): Map<String, String> {
-        return if (value.isEmpty()) emptyMap()
-        else value.split(";").associate {
-            val (key, value) = it.split(":")
-            key to value
-        }
-    }
+    // ... аналогично для GraphicHistoryEntity, ProgrammerHistoryEntity, StatisticalHistoryEntity
 }

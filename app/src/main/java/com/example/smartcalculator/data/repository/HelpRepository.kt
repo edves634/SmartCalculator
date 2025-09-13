@@ -1,4 +1,4 @@
 package com.example.smartcalculator.data.repository
 
-class SettingsRepository {
+class HelpRepository {
 }

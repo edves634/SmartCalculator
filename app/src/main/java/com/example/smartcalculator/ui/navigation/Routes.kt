@@ -20,4 +20,7 @@ object Routes {
     const val EXPRESSION = "expression"
     const val RESULT = "result"
 
+    const val HISTORY = "history"
+    const val HELP = "help"
+
 }

@@ -1,45 +1,42 @@
 package com.example.smartcalculator.di
 
-import com.example.smartcalculator.data.repository.AlgebraicRepository
-import com.example.smartcalculator.data.repository.AlgebraicRepositoryImpl
-import com.example.smartcalculator.data.repository.GraphicRepository
-import com.example.smartcalculator.data.repository.GraphicRepositoryImpl
-import com.example.smartcalculator.data.repository.ProgrammerRepository
-import com.example.smartcalculator.data.repository.ProgrammerRepositoryImpl
-import com.example.smartcalculator.data.repository.SettingsRepository
-import com.example.smartcalculator.data.repository.SettingsRepositoryImpl
-import com.example.smartcalculator.data.repository.StatisticalRepository
-import com.example.smartcalculator.data.repository.StatisticalRepositoryImpl
+import com.example.smartcalculator.data.local.database.dao.AlgebraicHistoryDao
+import com.example.smartcalculator.data.local.database.dao.GraphicHistoryDao
+import com.example.smartcalculator.data.local.database.dao.ProgrammerHistoryDao
+import com.example.smartcalculator.data.local.database.dao.StatisticalHistoryDao
+import com.example.smartcalculator.data.repository.HelpRepository
+import com.example.smartcalculator.data.repository.HistoryRepository
+import com.example.smartcalculator.data.repository.HistoryRepositoryImpl
+import com.example.smartcalculator.util.Converters
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-    @Binds
-    abstract fun bindAlgebraicRepository(
-        algebraicRepositoryImpl: AlgebraicRepositoryImpl
-    ): AlgebraicRepository
+object RepositoryModule {
+    @Provides
+    @Singleton
+    fun provideHistoryRepository(
+        algebraicDao: AlgebraicHistoryDao,
+        graphicDao: GraphicHistoryDao,
+        programmerDao: ProgrammerHistoryDao,
+        statisticalDao: StatisticalHistoryDao,
+        converters: Converters
+    ): HistoryRepository {
+        return HistoryRepositoryImpl(
+            algebraicDao, graphicDao, programmerDao, statisticalDao, converters
+        )
+    }
 
-    @Binds
-    abstract fun bindGraphicRepository(
-        graphicRepositoryImpl: GraphicRepositoryImpl
-    ): GraphicRepository
+    @Provides
+    @Singleton
+    fun provideHelpRepository(): HelpRepository {
+        return HelpRepositoryImpl()
+    }
 
-    @Binds
-    abstract fun bindProgrammerRepository(
-        programmerRepositoryImpl: ProgrammerRepositoryImpl
-    ): ProgrammerRepository
-
-    @Binds
-    abstract fun bindStatisticalRepository(
-        statisticalRepositoryImpl: StatisticalRepositoryImpl
-    ): StatisticalRepository
-
-    @Binds
-    abstract fun bindSettingsRepository(
-        settingsRepositoryImpl: SettingsRepositoryImpl
-    ): SettingsRepository
+    // Аналогично для других репозиториев
 }
