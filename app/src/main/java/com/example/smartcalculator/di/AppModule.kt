@@ -1,6 +1,9 @@
 package com.example.smartcalculator.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.smartcalculator.data.local.database.AppDatabase
+import com.example.smartcalculator.data.local.database.dao.AlgebraicHistoryDao
 import com.example.smartcalculator.data.local.datastore.PreferencesManager
 import com.example.smartcalculator.domain.util.ExpressionParser
 import com.example.smartcalculator.util.Converters
@@ -16,13 +19,17 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun providePreferencesManager(@ApplicationContext context: Context): PreferencesManager {
-        return PreferencesManager(context)
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "calculator-db"
+        ).build()
     }
 
     @Provides
-    @Singleton
-    fun provideConverters(): Converters {
-        return Converters()
+    fun provideAlgebraicHistoryDao(db: AppDatabase): AlgebraicHistoryDao {
+        return db.algebraicHistoryDao()
     }
+    // Аналогично для других Dao
 }

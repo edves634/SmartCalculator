@@ -1,6 +1,8 @@
 package com.example.smartcalculator.ui.navigation
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 
 class NavigationManager {
@@ -71,5 +73,12 @@ class NavigationManager {
 
     fun getCurrentRoute(): String? {
         return navController?.currentBackStackEntry?.destination?.route
+    }
+    class NavigationManager {
+        val navController = mutableStateOf<NavHostController?>(null)
+
+        fun navigate(route: String) {
+            navController.value?.navigate(route)
+        }
     }
 }

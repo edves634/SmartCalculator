@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,19 +20,23 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class PreferencesManager @Inject constructor(
     @ApplicationContext context: Context
 ) {
-    private val dataStore = context.dataStore
+    private val dataStore = context.createDataStore(name = "settings")
 
-    companion object {
-        val THEME_PREFERENCE_KEY = booleanPreferencesKey("theme_preference")
-        val VIBRATION_PREFERENCE_KEY = booleanPreferencesKey("vibration_preference")
-        val LANGUAGE_PREFERENCE_KEY = stringPreferencesKey("language_preference")
-    }
+    val themeStream: Flow<Int> = dataStore.data
+        .map { preferences ->
+            preferences[THEME_KEY] ?: 0
+        }
 
-    suspend fun setThemePreference(isDarkTheme: Boolean) {
+    suspend fun setTheme(theme: Int) {
         dataStore.edit { preferences ->
-            preferences[THEME_PREFERENCE_KEY] = isDarkTheme
+            preferences[THEME_KEY] = theme
         }
     }
+
+    companion object {
+        val THEME_KEY = intPreferencesKey("theme")
+    }
+
 
     val getThemePreference: Flow<Boolean> = dataStore.data
         .map { preferences ->
