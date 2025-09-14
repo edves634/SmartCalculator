@@ -1,4 +1,6 @@
 package com.example.smartcalculator.ui.main
 
-class CalculatorCard {
+import com.example.smartcalculator.data.model.CalculatorType
+
+class CalculatorCard(calculatorType: CalculatorType, onClick: () -> Unit) {
 }

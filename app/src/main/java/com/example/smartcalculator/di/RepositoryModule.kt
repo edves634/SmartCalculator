@@ -5,10 +5,10 @@ import com.example.smartcalculator.data.local.database.dao.GraphicHistoryDao
 import com.example.smartcalculator.data.local.database.dao.ProgrammerHistoryDao
 import com.example.smartcalculator.data.local.database.dao.StatisticalHistoryDao
 import com.example.smartcalculator.data.repository.HelpRepository
+import com.example.smartcalculator.data.repository.HelpRepositoryImpl
 import com.example.smartcalculator.data.repository.HistoryRepository
 import com.example.smartcalculator.data.repository.HistoryRepositoryImpl
 import com.example.smartcalculator.util.Converters
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,9 @@ object RepositoryModule {
         converters: Converters
     ): HistoryRepository {
         return HistoryRepositoryImpl(
-            algebraicDao, graphicDao, programmerDao, statisticalDao, converters
+            algebraicDao,
+            graphicDao as GraphicHistoryDao,
+            programmerDao as ProgrammerHistoryDao, statisticalDao as StatisticalHistoryDao, converters
         )
     }
 

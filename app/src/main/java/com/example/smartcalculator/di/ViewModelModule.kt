@@ -1,32 +1,62 @@
 package com.example.smartcalculator.di
 
-import androidx.lifecycle.ViewModel
-import com.example.smartcalculator.data.repository.AlgebraicRepository
-import com.example.smartcalculator.domain.usecase.algebraic.AlgebraicCalculateUseCase
-import com.example.smartcalculator.domain.usecase.graphic.GraphicCalculateUseCase
-import com.example.smartcalculator.domain.usecase.programmer.ProgrammerCalculateUseCase
-import com.example.smartcalculator.domain.usecase.statistical.StatisticalCalculateUseCase
-import com.example.smartcalculator.domain.util.NumberConverter
 import com.example.smartcalculator.ui.calculators.algebraic.AlgebraicViewModel
+import com.example.smartcalculator.ui.calculators.charts.ChartsViewModel
+import com.example.smartcalculator.ui.calculators.graphic.GraphicViewModel
+import com.example.smartcalculator.ui.calculators.programmer.ProgrammerViewModel
+import com.example.smartcalculator.ui.calculators.qrgenerator.QRGeneratorViewModel
+import com.example.smartcalculator.ui.calculators.statistical.StatisticalViewModel
 import com.example.smartcalculator.ui.help.HelpViewModel
 import com.example.smartcalculator.ui.history.HistoryViewModel
+import com.example.smartcalculator.ui.main.MainViewModel
+import com.example.smartcalculator.ui.settings.SettingsViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.multibindings.IntoMap
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object ViewModelModule {
-    @Provides
-    fun provideAlgebraicViewModel(
-        repository: AlgebraicRepository,
-        calculateUseCase: AlgebraicCalculateUseCase
-    ): AlgebraicViewModel {
-        return AlgebraicViewModel(repository, calculateUseCase)
-    }
+abstract class ViewModelModule {
 
-    // Аналогично для других ViewModel
+    @Binds
+    @ViewModelScoped
+    abstract fun bindAlgebraicViewModel(viewModel: AlgebraicViewModel): AlgebraicViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindProgrammerViewModel(viewModel: ProgrammerViewModel): ProgrammerViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindStatisticalViewModel(viewModel: StatisticalViewModel): StatisticalViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGraphicViewModel(viewModel: GraphicViewModel): GraphicViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindChartsViewModel(viewModel: ChartsViewModel): ChartsViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindQRGeneratorViewModel(viewModel: QRGeneratorViewModel): QRGeneratorViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindHistoryViewModel(viewModel: HistoryViewModel): HistoryViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindHelpViewModel(viewModel: HelpViewModel): HelpViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSettingsViewModel(viewModel: SettingsViewModel): SettingsViewModel
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindMainViewModel(viewModel: MainViewModel): MainViewModel
 }

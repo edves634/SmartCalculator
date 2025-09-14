@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "algebraic_history")
 data class AlgebraicHistoryEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val expression: String,
-    val result: String,
-    val timestamp: Long = System.currentTimeMillis()
-)
+    override val id: Long = 0,
+    override val expression: String,
+    override val result: String,
+    override val timestamp: Long = System.currentTimeMillis()
+) : BaseHistoryEntity()

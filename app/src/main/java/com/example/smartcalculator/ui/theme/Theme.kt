@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color.Companion.White
+import com.example.smartcalculator.data.model.AppTheme // Добавьте этот импорт
 
 private val LightColorScheme = lightColorScheme(
     primary = OlivePrimary,
@@ -33,10 +34,17 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun SmartCalculatorTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    appTheme: AppTheme = AppTheme.SYSTEM, // Добавьте этот параметр
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) {
+    // Определяем, использовать ли темную тему на основе выбора пользователя
+    val useDarkTheme = when (appTheme) {
+        AppTheme.LIGHT -> false
+        AppTheme.DARK -> true
+        AppTheme.SYSTEM -> isSystemInDarkTheme()
+    }
+
+    val colorScheme = if (useDarkTheme) {
         DarkColorScheme
     } else {
         LightColorScheme

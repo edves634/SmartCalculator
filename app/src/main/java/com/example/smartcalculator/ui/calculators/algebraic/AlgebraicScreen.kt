@@ -1,35 +1,34 @@
 package com.example.smartcalculator.ui.calculators.algebraic
 
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smartcalculator.ui.components.common.AppTopBar
-import com.example.smartcalculator.ui.navigation.Routes
 
 @Composable
 fun AlgebraicScreen(
-    viewModel: AlgebraicViewModel = hiltViewModel(),
-    onNavigate: (String) -> Unit
+    onNavigate: (String) -> Unit,
+    viewModel: AlgebraicViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
+    Column(modifier = Modifier.fillMaxSize()) {
+        AppTopBar(
+            title = "Algebraic Calculator",
+            onHistoryClick = { onNavigate("history/ALGEBRAIC") },
+            onHelpClick = { onNavigate("help/ALGEBRAIC") },
+            onShareClick = { /* TODO */ },
+            onBackClick = { onNavigate("back") }
+        )
 
-    Scaffold(
-        topBar = {
-            AppTopBar(
-                title = "Algebraic Calculator",
-                onHistoryClick = { onNavigate("${Routes.HISTORY}?calculatorType=ALGEBRAIC") },
-                onHelpClick = { onNavigate("${Routes.HELP}?calculatorType=ALGEBRAIC") },
-                onShareClick = { /* ... */ }
-            )
-        }
-    ) { padding ->
-        // ... остальная часть экрана
-    }
+        Text(
+            text = "Algebraic Calculator Placeholder",
+            modifier = Modifier.padding(16.dp)
+        )
 
-    // При вычислении результата сохраняем в историю
-    LaunchedEffect(state.result) {
-        if (state.result.isNotBlank()) {
-            viewModel.saveToHistory()
-        }
+        // Здесь будут компоненты калькулятора
     }
 }

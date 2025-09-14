@@ -7,16 +7,16 @@ import com.example.smartcalculator.data.local.database.entities.GraphicHistoryEn
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface GraphicHistoryDao {
-    @Query("SELECT * FROM graphic_history ORDER BY timestamp DESC")
-    fun getAll(): Flow<List<GraphicHistoryEntity>>
+interface GraphicHistoryDao : BaseHistoryDao<GraphicHistoryEntity> {
+    @Query("SELECT * FROM algebraic_history ORDER BY timestamp DESC")
+    override fun getAll(): Flow<List<GraphicHistoryEntity>>
 
     @Insert
-    suspend fun insert(entity: GraphicHistoryEntity)
+    override suspend fun insert(entity: GraphicHistoryEntity)
 
-    @Query("DELETE FROM graphic_history")
-    suspend fun deleteAll()
+    @Query("DELETE FROM Graphic_history")
+    override suspend fun deleteAll()
 
-    @Query("DELETE FROM graphic_history WHERE id = :id")
-    suspend fun deleteById(id: Long)
+    @Query("DELETE FROM Graphic_history WHERE id = :id")
+    override suspend fun deleteById(id: Long)
 }

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "statistical_history")
 data class StatisticalHistoryEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val expression: String,
-    val result: String,
-    val timestamp: Long = System.currentTimeMillis()
-)
+    override var id: Long = 0,
+    override var expression: String = "",
+    override var result: String = "",
+    override var timestamp: Long = System.currentTimeMillis()
+) : BaseHistoryEntity()

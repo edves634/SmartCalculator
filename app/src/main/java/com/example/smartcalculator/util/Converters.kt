@@ -8,6 +8,7 @@ import com.example.smartcalculator.data.model.CalculatorType
 import com.example.smartcalculator.data.model.HistoryItem
 
 class Converters {
+    // Методы преобразования Entity в HistoryItem
     fun toHistoryItem(entity: AlgebraicHistoryEntity): HistoryItem {
         return HistoryItem(
             id = entity.id,
@@ -28,8 +29,27 @@ class Converters {
         )
     }
 
-    // ... аналогично для ProgrammerHistoryEntity и StatisticalHistoryEntity
+    fun toHistoryItem(entity: ProgrammerHistoryEntity): HistoryItem {
+        return HistoryItem(
+            id = entity.id,
+            calculatorType = CalculatorType.PROGRAMMER,
+            expression = entity.expression,
+            result = entity.result,
+            timestamp = entity.timestamp
+        )
+    }
 
+    fun toHistoryItem(entity: StatisticalHistoryEntity): HistoryItem {
+        return HistoryItem(
+            id = entity.id,
+            calculatorType = CalculatorType.STATISTICAL,
+            expression = entity.expression,
+            result = entity.result,
+            timestamp = entity.timestamp
+        )
+    }
+
+    // Методы преобразования HistoryItem в Entity
     fun toAlgebraicEntity(item: HistoryItem): AlgebraicHistoryEntity {
         return AlgebraicHistoryEntity(
             id = item.id,
@@ -39,5 +59,30 @@ class Converters {
         )
     }
 
-    // ... аналогично для GraphicHistoryEntity, ProgrammerHistoryEntity, StatisticalHistoryEntity
+    fun toGraphicEntity(item: HistoryItem): GraphicHistoryEntity {
+        return GraphicHistoryEntity(
+            id = item.id,
+            expression = item.expression,
+            result = item.result,
+            timestamp = item.timestamp
+        )
+    }
+
+    fun toProgrammerEntity(item: HistoryItem): ProgrammerHistoryEntity {
+        return ProgrammerHistoryEntity(
+            id = item.id,
+            expression = item.expression,
+            result = item.result,
+            timestamp = item.timestamp
+        )
+    }
+
+    fun toStatisticalEntity(item: HistoryItem): StatisticalHistoryEntity {
+        return StatisticalHistoryEntity(
+            id = item.id,
+            expression = item.expression,
+            result = item.result,
+            timestamp = item.timestamp
+        )
+    }
 }

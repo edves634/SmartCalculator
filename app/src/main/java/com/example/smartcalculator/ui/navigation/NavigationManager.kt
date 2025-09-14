@@ -1,8 +1,6 @@
 package com.example.smartcalculator.ui.navigation
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 
 class NavigationManager {
@@ -24,43 +22,43 @@ class NavigationManager {
     }
 
     fun navigateToAlgebraic(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.ALGEBRAIC, builder)
+        navigateTo(Routes.Algebraic.route, builder)
     }
 
     fun navigateToGraphic(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.GRAPHIC, builder)
+        navigateTo(Routes.Graphic.route, builder)
     }
 
     fun navigateToStatistical(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.STATISTICAL, builder)
+        navigateTo(Routes.Statistical.route, builder)
     }
 
     fun navigateToProgrammer(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.PROGRAMMER, builder)
+        navigateTo(Routes.Programmer.route, builder)
     }
 
     fun navigateToCharts(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.CHARTS, builder)
+        navigateTo(Routes.Charts.route, builder)
     }
 
     fun navigateToQRGenerator(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.QR_GENERATOR, builder)
+        navigateTo(Routes.QRGenerator.route, builder)
     }
 
-    fun navigateToHistory(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.ALGEBRAIC_HISTORY, builder)
+    fun navigateToHistory(calculatorType: String, builder: (NavOptionsBuilder.() -> Unit)? = null) {
+        navigateTo(Routes.History.createRoute(calculatorType), builder)
     }
 
-    fun navigateToHelp(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.ALGEBRAIC_HELP, builder)
+    fun navigateToHelp(calculatorType: String, builder: (NavOptionsBuilder.() -> Unit)? = null) {
+        navigateTo(Routes.Help.createRoute(calculatorType), builder)
     }
 
     fun navigateToSettings(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.SETTINGS, builder)
+        navigateTo(Routes.Settings.route, builder)
     }
 
-    fun navigateToHome(builder: (NavOptionsBuilder.() -> Unit)? = null) {
-        navigateTo(Routes.HOME, builder)
+    fun navigateToMain(builder: (NavOptionsBuilder.() -> Unit)? = null) {
+        navigateTo(Routes.Main.route, builder)
     }
 
     fun goBack() {
@@ -73,12 +71,5 @@ class NavigationManager {
 
     fun getCurrentRoute(): String? {
         return navController?.currentBackStackEntry?.destination?.route
-    }
-    class NavigationManager {
-        val navController = mutableStateOf<NavHostController?>(null)
-
-        fun navigate(route: String) {
-            navController.value?.navigate(route)
-        }
     }
 }

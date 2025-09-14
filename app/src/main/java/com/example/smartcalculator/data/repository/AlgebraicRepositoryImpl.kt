@@ -1,7 +1,7 @@
 package com.example.smartcalculator.data.repository
 
 import com.example.smartcalculator.data.local.database.dao.AlgebraicHistoryDao
-import com.example.smartcalculator.data.local.database.dao.AlgebraicHistoryEntity
+import com.example.smartcalculator.data.local.database.entities.AlgebraicHistoryEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

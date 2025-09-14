@@ -1,5 +1,7 @@
 package com.example.smartcalculator.ui.calculators.algebraic
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartcalculator.data.model.CalculatorType
@@ -14,6 +16,9 @@ class AlgebraicViewModel @Inject constructor(
     private val saveHistoryUseCase: SaveHistoryUseCase
 ) : ViewModel() {
 
+    private val _state = mutableStateOf(AlgebraicState())
+    val state: State<AlgebraicState> = _state
+
     // ... остальная логика
 
     fun saveToHistory() {
@@ -26,7 +31,12 @@ class AlgebraicViewModel @Inject constructor(
             timestamp = System.currentTimeMillis()
         )
         viewModelScope.launch {
-            saveHistoryUseCase(historyItem)
+            saveHistoryUseCase.execute(historyItem)
         }
     }
 }
+
+data class AlgebraicState(
+    val expression: String = "",
+    val result: String = ""
+)

@@ -1,4 +1,5 @@
 package com.example.smartcalculator.data.model
 
-class HelpItem {
+enum class AppTheme {
+    LIGHT, DARK, SYSTEM
 }

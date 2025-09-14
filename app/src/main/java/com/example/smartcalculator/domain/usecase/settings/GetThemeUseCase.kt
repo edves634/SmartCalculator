@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetThemeUseCase @Inject constructor(
     private val repository: SettingsRepository
 ) {
-    operator fun invoke(): Flow<Boolean> {
+    operator fun invoke(): Flow<Int> {
         return repository.getThemePreference()
     }
 }
